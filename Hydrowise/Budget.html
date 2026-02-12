@@ -1,0 +1,349 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hydrowise - Final Budget Calculator</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+    <style>
+         :root {
+            --primary-blue: #003566;
+            --accent-blue: #00A8E8;
+            --water-blue: #00A8E8;
+            --success-green: #40916C;
+            --bg-light: #D8F3DC;
+        }
+        
+        html {
+            scroll-behavior: smooth;
+        }
+        
+        .login-btn {
+            background: var(--water-blue);
+            color: white !important;
+            padding: 10px 18px;
+            border-radius: 20px;
+            margin-left: 12px;
+            /* fixes position after flipping */
+        }
+        
+        .login-btn:hover {
+            background: var(--dark-blue);
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: var(--bg-light);
+            margin: 0;
+            padding-top: 100px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        /* Navbar */
+        
+        .navbar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            background: white;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 6px 6%;
+            box-shadow: 0 2px 15px rgba(0, 0, 0, 0.08);
+            z-index: 1000;
+            box-sizing: border-box;
+        }
+        
+        .nav-links {
+            display: flex;
+            list-style: none;
+            gap: 22px;
+            margin: 0;
+            padding: 0;
+            flex-wrap: wrap;
+        }
+        
+        .nav-links a {
+            text-decoration: none;
+            color: var(--primary-blue);
+            font-weight: 600;
+            transition: 0.3s;
+            font-size: 1rem;
+        }
+        
+        .nav-links a:hover {
+            color: var(--accent-blue);
+        }
+        /* Logo Area */
+        
+        .logo-container img {
+            height: 80px;
+            width: auto;
+            display: block;
+        }
+        
+        @media (max-width: 700px) {
+            body {
+                padding-top: 120px;
+            }
+            .navbar {
+                flex-direction: column;
+                gap: 10px;
+                padding: 10px 6%;
+            }
+            .nav-links {
+                justify-content: center;
+                gap: 12px;
+            }
+            .nav-links a {
+                font-size: 0.9rem;
+            }
+            .logo-container img {
+                height: 64px;
+            }
+            .form-container {
+                width: 92%;
+            }
+        }
+        /* Form Container */
+        
+        .form-container {
+            background: white;
+            padding: 40px;
+            border-radius: 25px;
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.1);
+            width: 90%;
+            max-width: 500px;
+            margin-bottom: 60px;
+        }
+        
+        h2 {
+            color: var(--primary-blue);
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        
+        .input-group {
+            margin-bottom: 20px;
+        }
+        
+        label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: bold;
+            color: var(--primary-blue);
+        }
+        
+        input {
+            width: 100%;
+            padding: 14px;
+            border: 2px solid #edf2f7;
+            border-radius: 12px;
+            box-sizing: border-box;
+            font-size: 1rem;
+            outline: none;
+            transition: 0.3s;
+        }
+        
+        input:focus {
+            border-color: var(--accent-blue);
+            background-color: #f8fafc;
+        }
+        
+        .member-box {
+            background: #f0fdf4;
+            padding: 20px;
+            border-left: 6px solid var(--success-green);
+            margin-bottom: 20px;
+            border-radius: 15px;
+        }
+        
+        button {
+            width: 100%;
+            padding: 16px;
+            background-color: var(--primary-blue);
+            color: white;
+            border: none;
+            border-radius: 12px;
+            font-size: 1.1rem;
+            font-weight: bold;
+            cursor: pointer;
+            transition: 0.3s;
+            margin-top: 10px;
+        }
+        
+        button:hover {
+            background-color: var(--accent-blue);
+            transform: translateY(-2px);
+        }
+        
+        #result {
+            margin-top: 30px;
+            padding: 25px;
+            border-radius: 20px;
+            display: none;
+            text-align: center;
+            border: 3px dashed var(--success-green);
+            background: #fdfdfd;
+        }
+        
+        #continueHome {
+            margin-top: 18px;
+            background-color: var(--success-green);
+        }
+        
+        #viewResult {
+            margin-top: 12px;
+            background-color: var(--accent-blue);
+        }
+        
+        .price-tag {
+            color: var(--success-green);
+            font-size: 2.2rem;
+            display: block;
+            font-weight: 900;
+            margin: 10px 0;
+        }
+    </style>
+</head>
+
+<body>
+
+    <nav class="navbar">
+        <ul class="nav-links">
+            <li><a href="Home.html">Home</a></li>
+            <li><a href="About.html">About</a></li>
+            <li><a href="Awareness.html">Awareness</a></li>
+            <li><a href="Rewards.html">Rewards</a></li>
+            <li><a href="Budget.html" style="color: var(--success-green);">Budget</a></li>
+            <li><a href="Contact.html">Contact</a></li>
+            <li><a href="Assistancs.html">Assistant</a></li>
+            <li><a href="login signup.html" class="login-btn">Log in</a></li>
+        </ul>
+
+        <div class="logo-container">
+            <img src="logo.png" alt="Hydrowise Logo">
+        </div>
+    </nav>
+
+    <div class="form-container" id="calculator-section">
+        <h2>Water Budget Calculator 💧</h2>
+
+        <div class="input-group">
+            <label>Family Members:</label>
+            <input type="number" id="familySize" placeholder="Enter number of people" oninput="generateMemberFields()">
+        </div>
+
+        <div id="membersContainer"></div>
+
+        <div class="input-group">
+            <label>Number of Rooms:</label>
+            <input type="number" id="roomsCount" placeholder="ex: 3">
+        </div>
+
+        <div class="input-group">
+            <label>Number of Taps:</label>
+            <input type="number" id="tapsCount" placeholder="ex: 6">
+        </div>
+
+        <button onclick="calculateWater()">Calculate My Budget</button>
+
+        <div id="result">
+            <span id="usageText" style="color: var(--primary-blue); font-size: 1.1rem;"></span>
+            <strong style="display:block; margin-top:15px;">Monthly Recharge (Egypt):</strong>
+            <span class="price-tag" id="priceText"></span>
+            <p id="savingTip" style="color: #4a5568; font-size: 0.95rem; font-weight: bold;"></p>
+            <button id="viewResult" onclick="goToResult()">View Detailed Result</button>
+            <button id="continueHome" onclick="goToHome()">Continue to Home</button>
+        </div>
+    </div>
+
+    <script>
+        function generateMemberFields() {
+            const size = document.getElementById('familySize').value;
+            const container = document.getElementById('membersContainer');
+            container.innerHTML = "";
+            for (let i = 1; i <= size; i++) {
+                const div = document.createElement('div');
+                div.className = 'member-box';
+                div.innerHTML = `
+                <div style="font-weight:bold; color:var(--primary-blue); margin-bottom:10px;">Member ${i}</div>
+                <div style="display: flex; gap: 10px;">
+                    <input type="number" class="showersPerWeek" placeholder="Showers/Week" style="flex:1">
+                    <input type="number" class="minsPerShower" placeholder="Mins/Shower" style="flex:1">
+                </div>`;
+                container.appendChild(div);
+            }
+        }
+
+        let lastTotalLiters = 0;
+        let lastMembers = 0;
+
+        function calculateWater() {
+            const familySize = parseInt(document.getElementById('familySize').value) || 0;
+            const rooms = parseInt(document.getElementById('roomsCount').value) || 0;
+            const taps = parseInt(document.getElementById('tapsCount').value) || 0;
+            const currentUser = JSON.parse(localStorage.getItem("currentUser"));
+            if (!currentUser) {
+                window.location.href = "index.html";
+            }
+
+            let showerLiters = 0;
+            const weeks = document.getElementsByClassName('showersPerWeek');
+            const mins = document.getElementsByClassName('minsPerShower');
+
+            for (let i = 0; i < weeks.length; i++) {
+                showerLiters += (parseFloat(weeks[i].value) || 0) * (parseFloat(mins[i].value) || 0) * 8 * 4;
+            }
+
+            const dailyBase = familySize * 80 * 30;
+            const fixturesUsage = (taps * 250) + (rooms * 200);
+            const totalLiters = dailyBase + showerLiters + fixturesUsage;
+            const m3 = totalLiters / 1000;
+
+            const finalPrice = (m3 * 7.5) + 35;
+
+            const resultDiv = document.getElementById('result');
+            resultDiv.style.display = 'block';
+
+            const roundedLiters = Math.round(totalLiters);
+            document.getElementById('usageText').innerText = `Total Usage: ${roundedLiters.toLocaleString()} Liters / Month`;
+            document.getElementById('priceText').innerText = `${Math.ceil(finalPrice)} EGP`;
+            document.getElementById('savingTip').innerText = `💡 Hydrowise: Saving 25% means extra ${Math.ceil(finalPrice * 0.25)} EGP in your pocket!`;
+
+            lastTotalLiters = roundedLiters;
+            lastMembers = familySize;
+
+            resultDiv.scrollIntoView({
+                behavior: 'smooth'
+            });
+        }
+
+        function goToResult() {
+            if (!lastMembers || !lastTotalLiters) {
+                alert("Please calculate your budget first.");
+                return;
+            }
+            const url = `Result.html?total=${encodeURIComponent(lastTotalLiters)}&members=${encodeURIComponent(lastMembers)}`;
+            window.location.href = url;
+        }
+
+        function goToHome() {
+            window.location.href = "Home.html";
+        }
+    </script>
+
+</body>
+
+</html>

@@ -1,0 +1,308 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>HydroWise</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+
+    <style>
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: radial-gradient(circle at top, #F2FFF7 0%, #E7F8EE 40%, #D8F3DC 100%);
+            margin: 0;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
+        }
+        /* ===== NAVBAR ===== */
+        
+        nav {
+            background: #003566;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 12px 40px;
+        }
+        
+        nav .logo {
+            color: white;
+            font-weight: 700;
+            font-size: 22px;
+        }
+        
+        nav ul {
+            list-style: none;
+            display: flex;
+            gap: 25px;
+            margin: 0;
+            padding: 0;
+        }
+        
+        nav ul li a {
+            color: white;
+            text-decoration: none;
+            font-weight: 500;
+        }
+        
+        #authSection {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+        
+        #authSection span {
+            color: white;
+        }
+        
+        nav button {
+            background: #00A8E8;
+            border: none;
+            padding: 8px 16px;
+            border-radius: 6px;
+            color: white;
+            cursor: pointer;
+        }
+        /* ===== CONTENT ===== */
+        
+        .container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 90vh;
+        }
+        
+        .box {
+            background: white;
+            padding: 30px;
+            width: 360px;
+            border-radius: 20px;
+            box-shadow: 0 12px 28px rgba(0, 0, 0, 0.1);
+            text-align: center;
+        }
+        
+        input,
+        button {
+            width: 100%;
+            padding: 12px;
+            margin-top: 12px;
+            border-radius: 8px;
+            font-size: 15px;
+        }
+        
+        input {
+            border: 2px solid #00A8E8;
+        }
+        
+        button {
+            background: #003566;
+            color: white;
+            border: none;
+            cursor: pointer;
+        }
+        
+        .back-button {
+            background: #40916C;
+        }
+        
+        .hidden {
+            display: none;
+        }
+        
+        .result-id {
+            background: #f0f9ff;
+            padding: 15px;
+            margin-top: 15px;
+            border-radius: 10px;
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- NAVBAR -->
+    <nav>
+        <div class="logo">HydroWise</div>
+
+        <ul>
+            <li><a href="Home.html">Home</a></li>
+            <li><a href="About.html">About</a></li>
+            <li><a href="Budget.html">Budget</a></li>
+        </ul>
+
+        <div id="authSection"></div>
+    </nav>
+
+    <div class="container">
+        <div class="box">
+
+            <!-- CHOICE -->
+            <div id="choice">
+                <button onclick="showLogin()">Log In</button>
+                <button onclick="showSignup()">Sign Up</button>
+            </div>
+
+            <!-- LOGIN -->
+            <div id="login" class="hidden">
+                <h3>Log In</h3>
+                <input type="email" id="loginEmail" placeholder="Enter your email">
+                <input type="text" id="loginId" placeholder="Enter your ID">
+                <button onclick="login()">Submit</button>
+                <button class="back-button" onclick="showChoice()">Back</button>
+            </div>
+
+            <!-- SIGNUP -->
+            <div id="signup" class="hidden">
+                <h3>Sign Up</h3>
+                <input type="text" id="name" placeholder="Your name">
+                <input type="email" id="email" placeholder="Your email">
+                <input type="tel" id="phone" placeholder="Your mobile number">
+                <input type="text" id="card" placeholder="Water card number">
+                <input type="password" id="pass" placeholder="Password">
+                <input type="password" id="confirm" placeholder="Confirm password">
+                <button onclick="signup()">Submit</button>
+                <button class="back-button" onclick="showChoice()">Back</button>
+            </div>
+
+            <!-- RESULT -->
+            <div id="result" class="hidden">
+                <h3>Registration Successful</h3>
+                <div id="userId" class="result-id"></div>
+                <button onclick="goToBudget()">Continue</button>
+            </div>
+
+        </div>
+    </div>
+
+    <script>
+        function getUsers() {
+            return JSON.parse(localStorage.getItem("users")) || [];
+        }
+
+        function saveUsers(users) {
+            localStorage.setItem("users", JSON.stringify(users));
+        }
+
+        function updateNavbar() {
+            const authSection = document.getElementById("authSection");
+            const currentUser = JSON.parse(localStorage.getItem("currentUser"));
+
+            if (currentUser) {
+                authSection.innerHTML = `
+            <span>Hello, ${currentUser.name}</span>
+            <button onclick="logout()">Logout</button>
+        `;
+            } else {
+                authSection.innerHTML = `
+            <a href="Login.html" style="color:white; text-decoration:none;">Login</a>
+        `;
+            }
+        }
+
+        function showChoice() {
+            loginDiv.classList.add("hidden");
+            signupDiv.classList.add("hidden");
+            resultDiv.classList.add("hidden");
+            choiceDiv.classList.remove("hidden");
+        }
+
+        function showLogin() {
+            choiceDiv.classList.add("hidden");
+            loginDiv.classList.remove("hidden");
+        }
+
+        function showSignup() {
+            choiceDiv.classList.add("hidden");
+            signupDiv.classList.remove("hidden");
+        }
+
+        function login() {
+            const email = document.getElementById("loginEmail").value.trim();
+            const id = document.getElementById("loginId").value.trim();
+
+            const user = getUsers().find(u => u.email === email && u.id === id);
+
+            if (!user) {
+                alert("Invalid login information");
+                return;
+            }
+
+            localStorage.setItem("currentUser", JSON.stringify(user));
+            updateNavbar();
+            goToBudget();
+        }
+
+        function signup() {
+            const name = document.getElementById("name").value.trim();
+            const email = document.getElementById("email").value.trim();
+            const phone = document.getElementById("phone").value.trim();
+            const card = document.getElementById("card").value.trim();
+            const pass = document.getElementById("pass").value;
+            const confirm = document.getElementById("confirm").value;
+
+            if (!name || !email || !phone || !card || !pass || !confirm) {
+                alert("Please fill all fields");
+                return;
+            }
+
+            if (pass !== confirm) {
+                alert("Passwords do not match");
+                return;
+            }
+
+            let users = getUsers();
+
+            if (users.some(u => u.email === email)) {
+                alert("Email already exists");
+                return;
+            }
+
+            const id = "HW-" + Date.now();
+
+            users.push({
+                id,
+                name,
+                email,
+                phone,
+                waterCard: card,
+                password: pass
+            });
+            saveUsers(users);
+
+            signupDiv.classList.add("hidden");
+            resultDiv.classList.remove("hidden");
+            document.getElementById("userId").innerText = "Your ID: " + id;
+        }
+
+        function logout() {
+            localStorage.removeItem("currentUser");
+            updateNavbar();
+            showChoice();
+        }
+
+        function goToBudget() {
+            window.location.href = "Budget.html";
+        }
+
+        const loginDiv = document.getElementById("login");
+        const signupDiv = document.getElementById("signup");
+        const resultDiv = document.getElementById("result");
+        const choiceDiv = document.getElementById("choice");
+
+        document.addEventListener("DOMContentLoaded", () => {
+            updateNavbar();
+
+            if (localStorage.getItem("currentUser")) {
+                goToBudget();
+            } else {
+                showChoice();
+            }
+        });
+    </script>
+
+</body>
+
+</html>

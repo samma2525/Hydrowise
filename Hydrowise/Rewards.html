@@ -1,0 +1,363 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>HydroWise – Smart Water Rewards</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+
+    <style>
+         :root {
+            --dark: #003566;
+            --blue: #00A8E8;
+            --water-blue: #00A8E8;
+            --green: #40916C;
+            --mint: #D8F3DC;
+        }
+        
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background: var(--mint);
+            color: #012;
+            padding-top: 100px;
+        }
+        
+        .login-btn {
+            background: var(--water-blue);
+            color: white !important;
+            padding: 10px 18px;
+            border-radius: 20px;
+            margin-left: 12px;
+            /* fixes position after flipping */
+        }
+        
+        .login-btn:hover {
+            background: var(--dark-blue);
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
+        }
+        /* NAVBAR */
+        
+        .navbar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            background: white;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 6px 6%;
+            box-shadow: 0 2px 15px rgba(0, 0, 0, 0.08);
+            z-index: 1000;
+            box-sizing: border-box;
+        }
+        
+        .nav-logo {
+            height: 80px;
+            width: auto;
+            display: block;
+        }
+        
+        .nav-links {
+            list-style: none;
+            display: flex;
+            gap: 22px;
+            margin: 0;
+            padding: 0;
+            flex-wrap: wrap;
+        }
+        
+        .nav-links a {
+            text-decoration: none;
+            color: var(--dark);
+            font-weight: 600;
+            font-size: 1rem;
+        }
+        
+        .nav-links a:hover {
+            color: var(--blue);
+        }
+        
+        @media (max-width: 700px) {
+            body {
+                padding-top: 120px;
+            }
+            .navbar {
+                flex-direction: column;
+                gap: 10px;
+                padding: 10px 6%;
+            }
+            .nav-links {
+                justify-content: center;
+                gap: 12px;
+            }
+            .nav-links a {
+                font-size: 0.9rem;
+            }
+            .nav-logo {
+                height: 64px;
+            }
+            .container {
+                padding: 30px 16px;
+            }
+        }
+        
+        header {
+            background: var(--dark);
+            color: white;
+            padding: 25px 40px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .points-box {
+            background: white;
+            color: var(--dark);
+            padding: 12px 22px;
+            border-radius: 30px;
+            font-weight: bold;
+            font-size: 18px;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: auto;
+            padding: 40px;
+        }
+        
+        section {
+            margin-bottom: 70px;
+        }
+        
+        h2 {
+            color: var(--dark);
+            margin-bottom: 20px;
+        }
+        /* TABLE */
+        
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            background: white;
+            border-radius: 14px;
+            overflow: hidden;
+            box-shadow: 0 6px 18px rgba(0, 0, 0, 0.08);
+        }
+        
+        th {
+            background: var(--blue);
+            color: white;
+            padding: 14px;
+            text-align: center;
+        }
+        
+        td {
+            padding: 14px;
+            text-align: center;
+            border-bottom: 1px solid #eee;
+        }
+        
+        .positive {
+            color: var(--green);
+            font-weight: bold;
+        }
+        
+        .negative {
+            color: #c1121f;
+            font-weight: bold;
+        }
+        /* CARDS */
+        
+        .cards {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+            gap: 25px;
+        }
+        
+        .card {
+            background: white;
+            border-radius: 18px;
+            padding: 22px;
+            box-shadow: 0 6px 18px rgba(0, 0, 0, 0.1);
+        }
+        
+        .card img {
+            width: 100%;
+            height: 160px;
+            object-fit: contain;
+            margin-bottom: 15px;
+        }
+        
+        .card h3 {
+            color: var(--dark);
+        }
+        
+        button {
+            margin-top: 15px;
+            padding: 10px 18px;
+            background: var(--green);
+            color: white;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+        }
+        
+        button:hover {
+            background: var(--blue);
+        }
+    </style>
+</head>
+
+<body>
+
+    <nav class="navbar">
+        <ul class="nav-links">
+            <li><a href="Home.html">Home</a></li>
+            <li><a href="About.html">About</a></li>
+            <li><a href="Awareness.html">Awareness</a></li>
+            <li><a href="Rewards.html">Rewards</a></li>
+            <li><a href="Budget.html">Budget</a></li>
+            <li><a href="Contact.html">Contact</a></li>
+            <li><a href="Assistancs.html">Assistant</a></li>
+            <li><a href="login signup.html" class="login-btn">Log in</a></li>
+        </ul>
+        <img src="logo.png" alt="Hydrowise Logo" class="nav-logo">
+    </nav>
+
+    <header>
+        <h1>HydroWise</h1>
+        <div class="points-box">
+            💧 Total Points: <span id="points">0</span>
+        </div>
+    </header>
+
+    <div class="container">
+
+        <!-- DASHBOARD TABLE -->
+        <section>
+            <h2>Water Consumption & Points Dashboard</h2>
+
+            <table>
+                <tr>
+                    <th>Date</th>
+                    <th>Water Used (m³)</th>
+                    <th>Baseline (m³)</th>
+                    <th>Points Change</th>
+                </tr>
+
+                <tr>
+                    <td>01 Feb 2026</td>
+                    <td>9</td>
+                    <td>12</td>
+                    <td class="positive">+20</td>
+                </tr>
+
+                <tr>
+                    <td>05 Feb 2026</td>
+                    <td>11</td>
+                    <td>12</td>
+                    <td class="positive">+10</td>
+                </tr>
+
+                <tr>
+                    <td>10 Feb 2026</td>
+                    <td>14</td>
+                    <td>12</td>
+                    <td class="negative">-5</td>
+                </tr>
+
+                <tr>
+                    <td>15 Feb 2026</td>
+                    <td>8</td>
+                    <td>12</td>
+                    <td class="positive">+25</td>
+                </tr>
+
+            </table>
+        </section>
+
+        <!-- BILL DISCOUNTS -->
+        <section>
+            <h2>Water Bill Discounts</h2>
+
+            <div class="cards">
+                <div class="card">
+                    <h3>10% Bill Discount</h3>
+                    <p>Apply to next month's water bill.</p>
+                    <button onclick="redeem(40)">Redeem – 40 pts</button>
+                </div>
+
+                <div class="card">
+                    <h3>30% Bill Discount</h3>
+                    <p>For highly efficient households.</p>
+                    <button onclick="redeem(90)">Redeem – 90 pts</button>
+                </div>
+            </div>
+        </section>
+
+        <!-- SMART WATER LIBRARY -->
+        <section>
+            <h2>Smart Water Products Library</h2>
+
+            <div class="cards">
+
+                <div class="card">
+                    <img src="https://www.philips.com/c-dam/b2c/category-pages/water/philips-water-purifier.png">
+                    <h3>Philips Smart Water Purifier</h3>
+                    <p>Advanced filtration and water efficiency.</p>
+                    <button onclick="redeem(120)">Redeem – 120 pts</button>
+                </div>
+
+                <div class="card">
+                    <img src="https://www.moen.com/sites/default/files/styles/product_image/public/2022-07/smart-faucet.png">
+                    <h3>Moen Smart Faucet</h3>
+                    <p>Touchless & water-saving smart faucet.</p>
+                    <button onclick="redeem(150)">Redeem – 150 pts</button>
+                </div>
+
+                <div class="card">
+                    <img src="https://www.xylem.com/siteassets/brand/flygt-smart-sensor.png">
+                    <h3>Xylem Smart Water Sensor</h3>
+                    <p>Leak detection and consumption monitoring.</p>
+                    <button onclick="redeem(180)">Redeem – 180 pts</button>
+                </div>
+
+                <div class="card">
+                    <img src="https://www.honeywellhome.com/us/en/-/media/honeywell/tech-image/water-leak-sensor.png">
+                    <h3>Honeywell Leak Detector</h3>
+                    <p>Protects homes from water loss.</p>
+                    <button onclick="redeem(100)">Redeem – 100 pts</button>
+                </div>
+
+            </div>
+        </section>
+
+    </div>
+
+    <script>
+        let changes = [20, 10, -5, 25];
+        let total = changes.reduce((a, b) => a + b, 0);
+        document.getElementById("points").innerText = total;
+
+        function redeem(cost) {
+            if (total >= cost) {
+                total -= cost;
+                document.getElementById("points").innerText = total;
+                alert("Reward redeemed successfully ✅");
+            } else {
+                alert("Not enough points ❌");
+            }
+        }
+    </script>
+
+</body>
+
+</html>

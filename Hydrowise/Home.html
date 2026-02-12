@@ -1,0 +1,457 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Hydrowise | Smart Water System</title>
+
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+
+    <style>
+         :root {
+            --blue: #003566;
+            --accent: #00A8E8;
+            --water-blue: #00A8E8;
+            --bg: #D8F3DC;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
+        }
+        
+        .login-btn {
+            background: var(--water-blue);
+            color: white !important;
+            padding: 10px 18px;
+            border-radius: 20px;
+            margin-left: 12px;
+            /* fixes position after flipping */
+        }
+        
+        .login-btn:hover {
+            background: var(--dark-blue);
+        }
+        
+        body {
+            background: var(--bg);
+            color: var(--blue);
+            padding-top: 100px;
+            overflow-x: hidden;
+        }
+        /* ================= NAVBAR ================= */
+        
+        .navbar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            background: white;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 6px 6%;
+            box-shadow: 0 2px 15px rgba(0, 0, 0, 0.08);
+            z-index: 1000;
+        }
+        
+        .logo-container img {
+            height: 70px;
+        }
+        
+        .nav-links {
+            list-style: none;
+            display: flex;
+            gap: 22px;
+        }
+        
+        .nav-links a {
+            text-decoration: none;
+            color: var(--blue);
+            font-weight: 600;
+            transition: .3s;
+        }
+        
+        .nav-links a:hover {
+            color: var(--accent);
+        }
+        /* ================= HERO ================= */
+        
+        .hero {
+            height: calc(100vh - 100px);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 10%;
+        }
+        
+        .hero-text {
+            max-width: 520px;
+        }
+        
+        .hero h1 {
+            font-size: 3.5rem;
+        }
+        
+        .hero p {
+            margin: 20px 0;
+            font-size: 1.1rem;
+            line-height: 1.7;
+        }
+        
+        .hero button {
+            padding: 16px 40px;
+            background: linear-gradient(135deg, #003566, #00A8E8);
+            border: none;
+            border-radius: 40px;
+            color: white;
+            font-weight: 600;
+            cursor: pointer;
+            box-shadow: 0 10px 30px rgba(0, 168, 232, 0.4);
+        }
+        /* ================= SENSOR ================= */
+        
+        .sensor {
+            position: relative;
+            width: 260px;
+            height: 260px;
+        }
+        
+        .center-drop {
+            font-size: 120px;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+        }
+        
+        .wave {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 80px;
+            height: 80px;
+            border: 2px solid rgba(0, 168, 232, 0.4);
+            border-radius: 50%;
+            transform: translate(-50%, -50%);
+            animation: wave 3s infinite;
+        }
+        
+        .wave:nth-child(2) {
+            animation-delay: 1s;
+        }
+        
+        .wave:nth-child(3) {
+            animation-delay: 2s;
+        }
+        
+        @keyframes wave {
+            from {
+                transform: translate(-50%, -50%) scale(1);
+                opacity: 1;
+            }
+            to {
+                transform: translate(-50%, -50%) scale(3.5);
+                opacity: 0;
+            }
+        }
+        
+        .data-box {
+            position: absolute;
+            bottom: -40px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: white;
+            padding: 12px 20px;
+            border-radius: 20px;
+            font-weight: 600;
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+            display: none;
+        }
+        /* ================= FEATURES ================= */
+        
+        .features {
+            display: flex;
+            justify-content: space-between;
+            padding: 80px 10%;
+        }
+        
+        .card {
+            background: white;
+            padding: 40px;
+            width: 280px;
+            border-radius: 20px;
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.08);
+        }
+        
+        .card h3 {
+            color: var(--accent);
+        }
+        /* ================= STEPS ================= */
+        
+        .steps {
+            padding: 80px 10%;
+            text-align: center;
+        }
+        
+        .steps h2 {
+            font-size: 2.5rem;
+            margin-bottom: 40px;
+        }
+        
+        .step {
+            font-size: 1.2rem;
+            margin: 15px 0;
+        }
+        /* ================= ANALYTICS ================= */
+        
+        .analytics {
+            display: none;
+            padding: 80px 10%;
+            background: white;
+        }
+        
+        .bar {
+            height: 18px;
+            background: #ddd;
+            border-radius: 20px;
+            overflow: hidden;
+            margin-top: 10px;
+        }
+        
+        .fill {
+            height: 100%;
+            background: var(--accent);
+        }
+        /* ================= CTA ================= */
+        
+        .cta {
+            background: var(--blue);
+            color: white;
+            text-align: center;
+            padding: 80px 10%;
+        }
+        
+        .cta button {
+            margin-top: 30px;
+            padding: 16px 50px;
+            background: var(--accent);
+            border: none;
+            border-radius: 40px;
+            color: white;
+            cursor: pointer;
+        }
+        /* ================= USER PANEL ================= */
+        
+        .user-btn {
+            position: fixed;
+            right: 20px;
+            top: 110px;
+            background: var(--accent);
+            color: white;
+            border: none;
+            padding: 12px 20px;
+            border-radius: 30px;
+            cursor: pointer;
+            z-index: 1001;
+        }
+        
+        .user-panel {
+            position: fixed;
+            right: -300px;
+            top: 0;
+            width: 300px;
+            height: 100%;
+            background: linear-gradient(180deg, #003566, #00A8E8);
+            color: white;
+            padding: 30px;
+            transition: .4s;
+            z-index: 1002;
+        }
+        
+        .user-panel.active {
+            right: 0;
+        }
+        
+        .stat {
+            margin: 20px 0;
+            font-weight: 600;
+        }
+        
+        .panel-btn {
+            width: 100%;
+            padding: 12px;
+            border: none;
+            border-radius: 30px;
+            background: white;
+            color: #003566;
+            font-weight: bold;
+            cursor: pointer;
+        }
+        /* ================= RESPONSIVE ================= */
+        
+        @media(max-width:900px) {
+            .hero {
+                flex-direction: column;
+                height: auto;
+                gap: 30px;
+                padding: 40px 8%;
+                text-align: center;
+            }
+            .features {
+                flex-direction: column;
+                align-items: center;
+                gap: 20px;
+            }
+            .card {
+                width: 100%;
+                max-width: 420px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- NAVBAR -->
+    <nav class="navbar">
+        <ul class="nav-links">
+            <li><a href="Home.html">Home</a></li>
+            <li><a href="About.html">About</a></li>
+            <li><a href="Awareness.html">Awareness</a></li>
+            <li><a href="Rewards.html">Rewards</a></li>
+            <li><a href="Budget.html">Budget</a></li>
+            <li><a href="Contact.html">Contact</a></li>
+            <li><a href="login signup.html" class="login-btn">Log in</a></li>
+        </ul>
+        <div class="logo-container">
+            <img src="logo.png" alt="Hydrowise Logo">
+        </div>
+    </nav>
+
+    <!-- HERO -->
+    <section class="hero">
+        <div class="hero-text">
+            <h1>Every Drop Counts 💧</h1>
+            <p>Hydrowise helps families analyze water usage, reduce waste, and earn rewards.</p>
+            <button onclick="goToCalculator()">Calculate Your Water Usage</button>
+        </div>
+
+        <div class="sensor">
+            <div class="wave"></div>
+            <div class="wave"></div>
+            <div class="wave"></div>
+            <div class="center-drop">💧</div>
+            <div class="data-box" id="usageLabel"></div>
+        </div>
+    </section>
+
+    <!-- FEATURES -->
+    <section class="features">
+        <div class="card">
+            <h3>Monitor</h3>
+            <p>Track your monthly consumption.</p>
+        </div>
+        <div class="card">
+            <h3>Analyze</h3>
+            <p>Understand waste patterns.</p>
+        </div>
+        <div class="card">
+            <h3>Optimize</h3>
+            <p>Get smart saving tips.</p>
+        </div>
+    </section>
+
+    <!-- STEPS -->
+    <section class="steps">
+        <h2>How It Works</h2>
+        <div class="step">1 — Enter your home data</div>
+        <div class="step">2 — View analytics</div>
+        <div class="step">3 — Earn rewards</div>
+    </section>
+
+    <!-- USER BUTTON -->
+    <button class="user-btn" onclick="togglePanel()">My Profile</button>
+
+    <!-- USER PANEL -->
+    <div class="user-panel" id="panel">
+        <h3 id="userName">Hydrowise User</h3>
+        <small id="userEmail"></small>
+
+        <div class="stat">💧 Water Saved: <span id="saved">0</span> L</div>
+        <div class="stat">⭐ Points: <span id="points">0</span></div>
+        <div class="stat">🎁 Rewards: <span id="rewards">—</span></div>
+
+        <button class="panel-btn" onclick="scrollToAnalytics()">View Analytics</button>
+    </div>
+
+    <!-- ANALYTICS -->
+    <section class="analytics" id="analytics">
+        <h2>Your Water Analytics</h2>
+        <p id="usageText"></p>
+        <p id="effText"></p>
+        <div class="bar">
+            <div class="fill" id="effBar"></div>
+        </div>
+    </section>
+
+    <!-- CTA -->
+    <section class="cta">
+        <h2>Start Saving Water Today</h2>
+        <button onclick="goToRewards()">View Rewards</button>
+    </section>
+
+    <script>
+        function togglePanel() {
+            document.getElementById("panel").classList.toggle("active");
+        }
+
+        function scrollToAnalytics() {
+            document.getElementById("panel").classList.remove("active");
+            document.getElementById("analytics").scrollIntoView({
+                behavior: "smooth"
+            });
+        }
+
+        function goToCalculator() {
+            window.location.href = "Budget.html";
+        }
+
+        function goToRewards() {
+            window.location.href = "Rewards.html";
+        }
+
+        /* ===== LOCAL DATA SYSTEM ===== */
+        const usage = localStorage.getItem("hydroUsage");
+        const saved = localStorage.getItem("hydroSaved") || 0;
+        const points = localStorage.getItem("hydroPoints") || 0;
+        const user = JSON.parse(localStorage.getItem("hydroUser"));
+
+        if (user) {
+            document.getElementById("userName").innerText = user.name;
+            document.getElementById("userEmail").innerText = user.email;
+        }
+
+        if (usage) {
+            const avg = 1500;
+            const eff = Math.min(100, (saved / avg) * 100);
+
+            document.getElementById("usageLabel").innerText = usage + " L / month";
+            document.getElementById("usageLabel").style.display = "block";
+
+            document.getElementById("saved").innerText = saved;
+            document.getElementById("points").innerText = points;
+            document.getElementById("rewards").innerText = saved > 500 ? "Free Filter" : "—";
+
+            document.getElementById("analytics").style.display = "block";
+            document.getElementById("usageText").innerText = "Monthly usage: " + usage + " liters";
+            document.getElementById("effText").innerText = "Efficiency: " + Math.round(eff) + "%";
+            document.getElementById("effBar").style.width = eff + "%";
+        }
+    </script>
+
+</body>
+
+</html>

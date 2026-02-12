@@ -1,0 +1,323 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HydroWise | Smart Water Saving</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+
+    <style>
+         :root {
+            --dark-blue: #003566;
+            --water-blue: #00A8E8;
+            --leaf-green: #40916C;
+            --mint-green: #D8F3DC;
+        }
+        
+        * {
+            * {
+                margin: 0;
+                padding: 0;
+                box-sizing: border-box;
+                font-family: 'Poppins', sans-serif;
+            }
+        }
+        
+        body {
+            background: var(--mint-green);
+            color: var(--dark-blue);
+        }
+        /* ===== NAVBAR FIXED ===== */
+        
+        .navbar {
+            position: sticky;
+            top: 0;
+            width: 100%;
+            background: white;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            flex-direction: row-reverse;
+            /* logo right, links left */
+            padding: 14px 6%;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+            z-index: 1000;
+        }
+        
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 22px;
+            font-weight: bold;
+            color: var(--dark-blue);
+            margin-left: 24px;
+        }
+        
+        .logo img {
+            height: 50px;
+        }
+        
+        .nav-links {
+            list-style: none;
+            display: flex;
+            gap: 28px;
+            align-items: center;
+            flex-direction: row;
+            /* fixes flipping inside navbar */
+        }
+        
+        .nav-links a {
+            text-decoration: none;
+            color: var(--dark-blue);
+            font-weight: 600;
+            position: relative;
+            transition: .3s;
+        }
+        
+        .nav-links a::after {
+            content: "";
+            width: 0;
+            height: 3px;
+            background: var(--water-blue);
+            position: absolute;
+            left: 0;
+            bottom: -6px;
+            transition: .3s;
+        }
+        
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+        
+        .login-btn {
+            background: var(--water-blue);
+            color: white !important;
+            padding: 10px 18px;
+            border-radius: 20px;
+            margin-left: 12px;
+            /* fixes position after flipping */
+        }
+        
+        .login-btn:hover {
+            background: var(--dark-blue);
+        }
+        
+        .menu-toggle {
+            display: none;
+            font-size: 26px;
+            cursor: pointer;
+        }
+        /* ===== HERO ===== */
+        
+        .hero {
+            padding: 90px 20px 60px;
+            text-align: center;
+        }
+        
+        .hero img {
+            width: 170px;
+            margin-bottom: 15px;
+        }
+        
+        .hero h1 {
+            font-size: 40px;
+            margin-bottom: 12px;
+        }
+        
+        .hero p {
+            max-width: 620px;
+            margin: auto;
+            color: var(--leaf-green);
+            font-size: 18px;
+        }
+        /* ===== ABOUT CARDS ===== */
+        
+        .about {
+            padding: 70px 20px;
+        }
+        
+        .container {
+            max-width: 1100px;
+            margin: auto;
+        }
+        
+        .cards {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+            gap: 32px;
+        }
+        
+        .card {
+            background: #ffffff;
+            padding: 35px;
+            border-radius: 22px;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.08);
+            border-top: 5px solid var(--water-blue);
+            transition: .35s;
+        }
+        
+        .card:hover {
+            transform: translateY(-12px) scale(1.02);
+        }
+        
+        .card h2 {
+            margin-bottom: 12px;
+            color: var(--dark-blue);
+        }
+        
+        .card p {
+            line-height: 1.7;
+        }
+        
+        .card ul {
+            list-style: none;
+            margin-top: 10px;
+        }
+        
+        .card li {
+            margin-bottom: 8px;
+        }
+        
+        .card li::before {
+            content: "💧";
+            margin-right: 8px;
+        }
+        /* ===== CTA ===== */
+        
+        .cta {
+            text-align: center;
+            padding: 70px 20px 90px;
+        }
+        
+        .cta a {
+            display: inline-block;
+            padding: 16px 44px;
+            background: var(--water-blue);
+            color: #ffffff;
+            border-radius: 40px;
+            text-decoration: none;
+            font-size: 17px;
+            font-weight: 600;
+            box-shadow: 0 6px 18px rgba(0, 168, 232, .4);
+            transition: .3s;
+        }
+        
+        .cta a:hover {
+            background: var(--dark-blue);
+        }
+        /* ===== RESPONSIVE ===== */
+        
+        @media (max-width: 768px) {
+            .nav-links {
+                position: absolute;
+                top: 70px;
+                right: 0;
+                background: white;
+                width: 230px;
+                flex-direction: column;
+                align-items: center;
+                padding: 20px;
+                gap: 20px;
+                box-shadow: 0 10px 25px rgba(0, 0, 0, 0.12);
+                display: none;
+            }
+            .nav-links.active {
+                display: flex;
+            }
+            .menu-toggle {
+                display: block;
+            }
+            .hero h1 {
+                font-size: 30px;
+            }
+            .hero p {
+                font-size: 15px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <nav class="navbar">
+
+        <div class="logo">
+            <img src="logo.png" alt="HydroWise Logo">
+        </div>
+
+        <ul class="nav-links">
+            <li><a href="Home.html">Home</a></li>
+            <li><a href="About.html">About</a></li>
+            <li><a href="Awareness.html">Awareness</a></li>
+            <li><a href="Rewards.html">Rewards</a></li>
+            <li><a href="Budget.html">Budget</a></li>
+            <li><a href="Contact.html">Contact</a></li>
+            <li><a href="Assistancs.html">Assistant</a></li>
+            <li><a href="login signup.html" class="login-btn">Log in</a></li>
+        </ul>
+
+        <div class="menu-toggle" onclick="toggleMenu()">☰</div>
+    </nav>
+
+    <section class="hero">
+        <img src="logo.png" alt="HydroWise">
+        <h1>Smart Water. Smart Future.</h1>
+        <p>
+            HydroWise helps individuals monitor, analyze, and reduce water consumption through intelligent tracking and sustainability insights.
+        </p>
+    </section>
+
+    <section class="about">
+        <div class="container">
+            <div class="cards">
+
+                <div class="card">
+                    <h2>Who We Are</h2>
+                    <p>
+                        HydroWise is a sustainability-driven digital platform designed to transform water awareness into measurable daily action.
+                    </p>
+                </div>
+
+                <div class="card">
+                    <h2>Why It Matters</h2>
+                    <p>
+                        Fresh water is a limited resource. Small behavioral changes, when multiplied, can create a powerful global impact.
+                    </p>
+                </div>
+
+                <div class="card">
+                    <h2>What We Do</h2>
+                    <ul>
+                        <li>Track personal water usage</li>
+                        <li>Analyze waste patterns</li>
+                        <li>Provide smart saving insights</li>
+                        <li>Encourage sustainable habits</li>
+                    </ul>
+                </div>
+
+                <div class="card">
+                    <h2>Our Vision</h2>
+                    <p>
+                        To build a future where every household understands and controls its water footprint using smart technology and data.
+                    </p>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <section class="cta">
+        <a href="#">Explore the System</a>
+    </section>
+
+    <script>
+        function toggleMenu() {
+            document.querySelector(".nav-links").classList.toggle("active");
+        }
+    </script>
+
+</body>
+
+</html>

@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hydrowise Result</title>
+    <style>
+         :root {
+            --dark-blue: #003566;
+            --water-blue: #00A8E8;
+            --leaf-green: #40916C;
+            --mint-green: #D8F3DC;
+        }
+        
+        * {
+            box-sizing: border-box;
+        }
+        
+        .login-btn {
+            background: var(--water-blue);
+            color: white !important;
+            padding: 10px 18px;
+            border-radius: 20px;
+            margin-left: 12px;
+            /* fixes position after flipping */
+        }
+        
+        .login-btn:hover {
+            background: var(--dark-blue);
+        }
+        
+        body {
+            font-family: 'Segoe UI', sans-serif;
+            background-color: var(--mint-green);
+            margin: 0;
+            min-height: 100vh;
+            padding-top: 100px;
+            display: flex;
+            justify-content: center;
+            align-items: flex-start;
+        }
+        
+        .navbar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            background: white;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 6px 6%;
+            box-shadow: 0 2px 15px rgba(0, 0, 0, 0.08);
+            z-index: 1000;
+            box-sizing: border-box;
+        }
+        
+        .nav-links {
+            list-style: none;
+            display: flex;
+            gap: 22px;
+            margin: 0;
+            padding: 0;
+            flex-wrap: wrap;
+        }
+        
+        .nav-links a {
+            text-decoration: none;
+            color: var(--dark-blue);
+            font-weight: 600;
+            font-size: 1rem;
+        }
+        
+        .nav-links a:hover {
+            color: var(--water-blue);
+        }
+        
+        .nav-logo {
+            height: 80px;
+            width: auto;
+            display: block;
+        }
+        
+        .result-card {
+            margin-top: 30px;
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            width: 90%;
+            max-width: 520px;
+            overflow: hidden;
+            animation: fadeIn 0.5s ease-in;
+        }
+        
+        .header {
+            padding: 30px;
+            text-align: center;
+            color: white;
+            transition: 0.3s;
+            background-color: var(--dark-blue);
+        }
+        
+        .content {
+            padding: 30px;
+        }
+        
+        .per-person {
+            font-size: 1.2rem;
+            margin-bottom: 20px;
+            color: #444;
+            text-align: center;
+            font-weight: bold;
+        }
+        
+        .next-steps {
+            background: #f9f9f9;
+            border-left: 5px solid var(--water-blue);
+            padding: 15px;
+            border-radius: 5px;
+        }
+        
+        .next-steps ul {
+            padding-left: 20px;
+            line-height: 1.8;
+        }
+        
+        .next-steps a {
+            color: var(--water-blue);
+            font-weight: bold;
+            text-decoration: none;
+        }
+        
+        .next-steps a:hover {
+            text-decoration: underline;
+        }
+        
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        @media (max-width: 700px) {
+            body {
+                padding-top: 120px;
+            }
+            .navbar {
+                flex-direction: column;
+                gap: 10px;
+                padding: 10px 6%;
+            }
+            .nav-links {
+                justify-content: center;
+                gap: 12px;
+            }
+            .nav-links a {
+                font-size: 0.9rem;
+            }
+            .nav-logo {
+                height: 64px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <nav class="navbar">
+        <ul class="nav-links">
+            <li><a href="Home.html">Home</a></li>
+            <li><a href="About.html">About</a></li>
+            <li><a href="Awareness.html">Awareness</a></li>
+            <li><a href="Rewards.html">Rewards</a></li>
+            <li><a href="Budget.html">Budget</a></li>
+            <li><a href="Contact.html">Contact</a></li>
+            <li><a href="Assistancs.html">Assistant</a></li>
+            <li><a href="login signup.html" class="login-btn">Log in</a></li>
+        </ul>
+        <img src="logo.png" alt="Hydrowise Logo" class="nav-logo">
+    </nav>
+
+    <div class="result-card">
+        <div id="header-bg" class="header">
+            <h1 id="status-title">Calculating...</h1>
+        </div>
+        <div class="content">
+            <div id="per-person-text" class="per-person"></div>
+            <div class="next-steps">
+                <h4 style="margin-top: 0; color: var(--dark-blue);">Your Personalized Roadmap:</h4>
+                <div id="advice-content"></div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function getQueryValue(name) {
+            const params = new URLSearchParams(window.location.search);
+            return params.get(name);
+        }
+
+        function generateResult(totalLiters, membersCount) {
+            const perPersonMonthly = totalLiters / membersCount;
+            const header = document.getElementById('header-bg');
+            const statusTitle = document.getElementById('status-title');
+            const perPersonText = document.getElementById('per-person-text');
+            const adviceContent = document.getElementById('advice-content');
+
+            let status, nextSteps;
+
+            if (perPersonMonthly <= 4500) {
+                status = "Eco-Warrior (Efficient)";
+                nextSteps = `
+          <ul>
+            <li>You are an inspiration! Visit our <a href="Awareness.html">Awareness Page</a> to stay on top.</li>
+            <li>Check the <a href="Rewards.html">Rewards Page</a> to earn more points.</li>
+          </ul>`;
+            } else if (perPersonMonthly <= 8000) {
+                status = "Average Consumer";
+                nextSteps = `
+          <ul>
+            <li>You can do better! Follow the <a href="Awareness.html">Awareness Page</a> to save 20%.</li>
+            <li>Visit <a href="Rewards.html">Rewards</a> for smart products.</li>
+          </ul>`;
+            } else {
+                status = "Wasteful (Over-consuming)";
+                nextSteps = `
+          <ul>
+            <li><b>Immediate action needed!</b> Visit the <a href="Awareness.html">Awareness Page</a> for leak tips.</li>
+            <li>Use the <a href="Assistancs.html">Assistant</a> for help.</li>
+          </ul>`;
+            }
+
+            header.style.backgroundColor = "#003566";
+            statusTitle.innerText = status;
+            perPersonText.innerText = `Average per person: ${Math.round(perPersonMonthly)} Liters/Month`;
+            adviceContent.innerHTML = nextSteps;
+        }
+
+        const total = parseFloat(getQueryValue("total"));
+        const members = parseInt(getQueryValue("members"), 10);
+
+        if (!total || !members) {
+            document.getElementById('status-title').innerText = "Missing data";
+            document.getElementById('per-person-text').innerText = "Please calculate your budget first.";
+            document.getElementById('advice-content').innerHTML = '<a href="Budget.html">Go to Budget Calculator</a>';
+            document.getElementById('header-bg').style.backgroundColor = "#003566";
+        } else {
+            generateResult(total, members);
+        }
+    </script>
+</body>
+
+</html>
